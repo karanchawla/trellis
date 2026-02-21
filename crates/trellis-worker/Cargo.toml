@@ -1,0 +1,23 @@
+[package]
+name = "trellis-worker"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = { workspace = true }
+bytes = { workspace = true }
+futures = { workspace = true }
+rand = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tokio-util = { workspace = true }
+
+trellis-core = { path = "../trellis-core" }
+trellis-protocol = { path = "../trellis-protocol" }
+trellis-store = { path = "../trellis-store" }
+
+[dev-dependencies]
+tempfile = { workspace = true }
+trellis-broker = { path = "../trellis-broker" }
+trellis-client = { path = "../trellis-client" }

@@ -106,12 +106,18 @@ impl RunSnapshot {
 
 impl Display for RunSnapshot {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let display_layer = if self.total_layers == 0 {
+            0
+        } else {
+            (self.current_layer + 1).min(self.total_layers)
+        };
+
         writeln!(
             f,
             "Run {}: {} (layer {} of {})",
             self.run_id,
             render_run_status(self.status),
-            self.current_layer + 1,
+            display_layer,
             self.total_layers
         )?;
 
@@ -285,5 +291,23 @@ mod tests {
         assert!(rendered.contains("Layer 1: 1/2 running, 1/2 pending"));
         assert!(rendered.contains("load"));
         assert!(rendered.contains("waiting on: transform-a, transform-b"));
+    }
+
+    #[test]
+    fn completed_run_layer_is_clamped_to_total_layers() {
+        let run = Run {
+            run_id: "run-done".to_string(),
+            status: RunStatus::Completed,
+            created_at: Utc::now(),
+            started_at: Some(Utc::now()),
+            completed_at: Some(Utc::now()),
+            broker: None,
+            total_layers: 120,
+            current_layer: 120,
+            tasks: HashMap::new(),
+        };
+
+        let rendered = RunSnapshot::from_run(&run).to_string();
+        assert!(rendered.contains("Run run-done: completed (layer 120 of 120)"));
     }
 }

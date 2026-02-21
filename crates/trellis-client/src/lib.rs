@@ -184,27 +184,4 @@ mod tests {
         assert_eq!(snapshot.total_layers, 2);
         assert_eq!(snapshot.tasks.len(), 2);
     }
-
-    #[tokio::test]
-    async fn snapshot_display_renders_status_and_waiting_dependencies() {
-        let temp = tempdir().expect("create temp dir");
-        let store = Arc::new(LocalFsStore::new(temp.path()));
-        let client = Client::new(store.clone());
-
-        let mut dag = DagBuilder::new("display");
-        dag.task("extract").task_type("extract");
-        dag.task("transform")
-            .task_type("transform")
-            .depends_on(["extract"]);
-        let run_id = client
-            .submit(dag, HashMap::new())
-            .await
-            .expect("submit DAG");
-
-        let snapshot = client.status(&run_id).await.expect("status");
-        let rendered = snapshot.to_string();
-        assert!(rendered.contains("Run"));
-        assert!(rendered.contains("Layer 0"));
-        assert!(rendered.contains("extract"));
-    }
 }

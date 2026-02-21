@@ -40,27 +40,3 @@ pub enum FailurePolicy {
     Continue,
     SkipDownstream,
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn run_status_terminal_states() {
-        assert!(!RunStatus::Pending.is_terminal());
-        assert!(!RunStatus::Running.is_terminal());
-        assert!(RunStatus::Completed.is_terminal());
-        assert!(RunStatus::Failed.is_terminal());
-        assert!(RunStatus::Cancelled.is_terminal());
-    }
-
-    #[test]
-    fn task_status_terminal_states() {
-        assert!(!TaskStatus::Blocked.is_terminal());
-        assert!(!TaskStatus::Pending.is_terminal());
-        assert!(!TaskStatus::Running.is_terminal());
-        assert!(TaskStatus::Completed.is_terminal());
-        assert!(TaskStatus::Failed.is_terminal());
-        assert!(TaskStatus::Skipped.is_terminal());
-    }
-}

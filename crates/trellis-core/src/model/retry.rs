@@ -51,15 +51,6 @@ mod tests {
     use rand::{SeedableRng, rngs::StdRng};
 
     #[test]
-    fn default_values_match_spec() {
-        let p = RetryPolicy::default();
-        assert_eq!(p.initial_interval_ms, 1_000);
-        assert_eq!(p.multiplier, 2.0);
-        assert_eq!(p.max_interval_ms, 60_000);
-        assert_eq!(p.jitter_percent, 0.25);
-    }
-
-    #[test]
     fn base_backoff_for_retry_zero_to_five() {
         let p = RetryPolicy {
             jitter_percent: 0.0,

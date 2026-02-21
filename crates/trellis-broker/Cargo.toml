@@ -1,0 +1,20 @@
+[package]
+name = "trellis-broker"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = { workspace = true }
+chrono = { workspace = true }
+futures = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tokio-util = { workspace = true }
+uuid = { workspace = true }
+
+trellis-core = { path = "../trellis-core" }
+trellis-protocol = { path = "../trellis-protocol" }
+trellis-store = { path = "../trellis-store" }
+
+[dev-dependencies]
+tempfile = { workspace = true }

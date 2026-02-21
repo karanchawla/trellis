@@ -1,0 +1,13 @@
+[package]
+name = "trellis-protocol"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bytes = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio-util = { workspace = true }
+
+[dev-dependencies]
+tokio-util = { workspace = true }
