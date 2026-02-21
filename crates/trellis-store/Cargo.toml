@@ -1,0 +1,26 @@
+[package]
+name = "trellis-store"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = []
+integration = []
+
+[dependencies]
+async-trait = { workspace = true }
+bytes = { workspace = true }
+fs2 = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+sha2 = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+uuid = { workspace = true }
+walkdir = { workspace = true }
+
+aws-sdk-s3 = { version = "=1.76.0" }
+
+[dev-dependencies]
+tempfile = { workspace = true }
+tokio = { workspace = true }
